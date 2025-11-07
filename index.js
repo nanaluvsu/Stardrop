@@ -1,0 +1,35 @@
+import Fastify from 'fastify';
+import npc from './routes/npc.js';
+import days from './routes/days.js';
+import plants from './routes/plants.js';
+const fastify = Fastify({ logger: true });
+import fastifyMongo from '@fastify/mongodb';
+
+const { MongoClient, ServerApiVersion } = import('mongodb');
+
+
+fastify.register(fastifyMongo, {
+  url: 'mongodb+srv://API:senha123@eba.plfkchp.mongodb.net/?retryWrites=true&w=majority&appName=eba'
+});
+fastify.register(import("@fastify/cors"), {
+  origin: "*",
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+})
+fastify.register(npc);
+fastify.register(days);
+fastify.register(plants);
+
+fastify.get('/', async function (request, reply) {
+  const db = fastify.mongo.client.db('stardew');
+  const collection = db.collection('npc');
+  const result = await collection.find({}).toArray();
+  reply.send(result);
+});
+
+fastify.listen({ port: 3000 }, function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+})

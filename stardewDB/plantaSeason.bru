@@ -1,0 +1,15 @@
+meta {
+  name: plantaSeason
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://127.0.0.1:3000/plants/season?season=Summer
+  body: none
+  auth: none
+}
+
+params:query {
+  season: Summer
+}

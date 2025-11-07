@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "stardewDB",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
