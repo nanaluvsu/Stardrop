@@ -5,7 +5,12 @@ meta {
 }
 
 get {
-  url: http://127.0.0.1:3000/plants/canPlant
+  url: http://127.0.0.1:3000/plants/canPlant?day=4&season=Spring
   body: none
   auth: none
+}
+
+params:query {
+  day: 4
+  season: Spring
 }
