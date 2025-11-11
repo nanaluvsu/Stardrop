@@ -1,6 +1,7 @@
 export default async function (fastify) {
   const db = fastify.mongo.client.db("stardew");
   const collection = db.collection("items");
+
   fastify.get("/items", async (_, reply) => {
     try {
       const items = await collection.find({}).toArray();

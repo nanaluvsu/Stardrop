@@ -73,9 +73,13 @@ export default async function (fastify) {
     try {
       const { day, season } = req.query;
 
+      var left = 28 - day;
+      if (day == 1 && season != "Fall") {
+        left = 28; //handling ancient fruit, since it 
+      }
       const plants = await collection
         .find({
-          growthTime: { $lte: parseInt(day) },
+          growthTime: { $lte: parseInt(left) },
           season: { $in: [season] },
         })
         .toArray();
