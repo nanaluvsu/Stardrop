@@ -57,6 +57,18 @@ export default async function (fastify) {
     }
   });
 
+  fastify.get("/plants/name", async (req, reply) => {
+    try {
+      var { name } = req.query;
+      const plants = await collection
+        .find({ name: { $regex: new RegExp(name), $options: 'i' } })
+        .toArray();
+      reply.send(plants);
+    } catch (error) {
+      reply.status(500).send({ error: "Failed to fetch plant" });
+    }
+  });
+
   fastify.get("/plants/season", async (req, reply) => {
     try {
       const { season } = req.query;
